@@ -1,10 +1,4 @@
-<?php
-/*
-*
-* Merchant e-Solutions Payment Gateway SDK for PHP
-* see http://developer.merchante-solutions.com for info
-*
-*/
+<?php 
 
 class TpgTransaction
 {
@@ -27,7 +21,7 @@ class TpgTransaction
                                   "bml_request", "promo_code", "order_num", "order_desc", "amount", "ship_amount", "ip_address", "bill_first_name", "bill_middle_name", "bill_last_name", "bill_addr1", "bill_addr2", "bill_city", "bill_state", "bill_zip", "bill_phone1", "bill_phone2", "bill_email", "ship_first_name", "ship_middle_name", "ship_last_name", "ship_addr1", "ship_addr2", "ship_city", "ship_state", "ship_zip", "ship_phone1", "ship_phone2", "ship_email" );
   var $url;
 
-  function TpgTransaction( $profileId = '', $profileKey = '' ) 
+  function __construct( $profileId = '', $profileKey = '' ) 
   { 
     $this->setProfile($profileId,$profileKey);
   }  
@@ -194,9 +188,9 @@ class TpgTransaction
 
 class TpgPreAuth extends TpgTransaction 
 { 
-  function TpgPreAuth( $profileId = '', $profileKey = '' ) 
+  function __construct( $profileId = '', $profileKey = '' ) 
   { 
-    $this->TpgTransaction( $profileId, $profileKey ); 
+    parent::__construct( $profileId, $profileKey ); 
     $this->TranType = "P"; // pre-auth 
   }
 
@@ -221,9 +215,9 @@ class TpgPreAuth extends TpgTransaction
 
 class TpgSale extends TpgTransaction 
 { 
-  function TpgSale( $profileId, $profileKey ) 
+  function __construct( $profileId, $profileKey ) 
   { 
-    $this->TpgTransaction($profileId, $profileKey); 
+    parent::__construct($profileId, $profileKey); 
     $this->TranType = "D"; 
   }
 
@@ -248,9 +242,9 @@ class TpgSale extends TpgTransaction
 
 class TpgCredit extends TpgTransaction 
 { 
-  function TpgCredit( $profileId, $profileKey ) 
+  function __construct( $profileId, $profileKey ) 
   { 
-    $this->TpgTransaction($profileId, $profileKey); 
+    parent::__construct($profileId, $profileKey); 
     $this->TranType = "C";
   }
 
@@ -263,9 +257,9 @@ class TpgCredit extends TpgTransaction
 
 class TpgSettle extends TpgTransaction 
 { 
-  function TpgSettle( $profileId, $profileKey, $tranId, $settleAmount = 0 ) 
+  function __construct( $profileId, $profileKey, $tranId, $settleAmount = 0 ) 
   { 
-    $this->TpgTransaction($profileId,$profileKey); 
+    parent::__construct($profileId,$profileKey); 
     $this->RequestFields['transaction_id'] = $tranId; 
     $this->RequestFields['transaction_amount'] = $settleAmount; 
     $this->TranType = "S"; 
@@ -279,9 +273,9 @@ class TpgSettle extends TpgTransaction
 
 class TpgRefund extends TpgTransaction 
 { 
-  function TpgRefund( $profileId, $profileKey, $tranId ) 
+  function __construct( $profileId, $profileKey, $tranId ) 
   { 
-    $this->TpgTransaction($profileId, $profileKey); 
+    parent::__construct($profileId, $profileKey); 
     $this->RequestFields['transaction_id'] = $tranId; 
     $this->TranType = "U"; 
   } 
@@ -295,9 +289,9 @@ class TpgRefund extends TpgTransaction
 
 class TpgVoid extends TpgTransaction 
 { 
-  function TpgVoid( $profileId, $profileKey, $tranId ) 
+  function __construct( $profileId, $profileKey, $tranId ) 
   { 
-    $this->TpgTransaction($profileId, $profileKey); 
+    parent::__construct($profileId, $profileKey); 
     $this->RequestFields['transaction_id'] = $tranId; 
     $this->TranType = "V"; 
   }
@@ -311,9 +305,9 @@ class TpgVoid extends TpgTransaction
 
 class TpgOffline extends TpgTransaction 
 { 
-  function TpgOffline( $profileId, $profileKey, $authCode ) 
+  function __construct( $profileId, $profileKey, $authCode ) 
   { 
-    $this->TpgTransaction($profileId, $profileKey); 
+    parent::__construct($profileId, $profileKey); 
     $this->RequestFields['auth_code'] = $authCode; 
     $this->TranType = "O"; 
   }
@@ -327,18 +321,18 @@ class TpgOffline extends TpgTransaction
 
 class TpgStoreData extends TpgTransaction 
 { 
-  function TpgStoreData( $profileId, $profileKey ) 
+  function __construct( $profileId, $profileKey ) 
   { 
-    $this->TpgTransaction($profileId, $profileKey); 
+    parent::__construct($profileId, $profileKey); 
     $this->TranType = "T"; 
   } 
 }
 
 class TpgRemoveData extends TpgTransaction 
 { 
-  function TpgRemoveData( $profileId, $profileKey, $cardId) 
+  function __construct( $profileId, $profileKey, $cardId) 
   { 
-    $this->TpgTransaction($profileId, $profileKey);
+    parent::__construct($profileId, $profileKey);
     $this->RequestFields['card_id'] = $cardId;
     $this->TranType = "X"; 
   } 
